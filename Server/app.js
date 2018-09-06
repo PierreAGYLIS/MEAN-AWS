@@ -8,10 +8,14 @@ var logger = require('morgan');
 var app = express();
 
 app.use(logger('dev'));
+app.use((req, res, next)=>{
+  console.log("Inside");
+  next();
+});
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "../public")));
+app.use(express.static(path.join(__dirname, "../Public")));
 mongoose.connect("mongodb://angulardyma:a123123@ds245022.mlab.com:45022/angulardyma", (err)=>{
   if (err)
   {
@@ -24,7 +28,7 @@ mongoose.connect("mongodb://angulardyma:a123123@ds245022.mlab.com:45022/angulard
 })
 
 app.get('*', (req, res)=>{
-  res.sendFile(path.join(__dirname, '../public/index.html'));
+  res.sendFile(path.join(__dirname, '../Public/index.html'));
 });
 
 module.exports = app;
